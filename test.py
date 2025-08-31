@@ -1,8 +1,6 @@
 import tkinter as tk
 import os
-import webbrowser
 import subprocess
-import shutil
 
 def open_appdata_roaming():
     """Открывает папку AppData\Roaming текущего пользователя"""
@@ -14,25 +12,9 @@ def open_network_usage():
     subprocess.run('start ms-settings:datausage', shell=True)
 
 def open_browser_history():
-    """Определяет браузер по умолчанию и открывает историю"""
-    # Получаем браузер по умолчанию
-    default_browser = webbrowser.get().name.lower()
-    
-    # Определяем команду в зависимости от браузера
-    if 'chrome' in default_browser or 'google' in default_browser:
-        subprocess.run('start chrome://history', shell=True)
-    elif 'yandex' in default_browser:
-        subprocess.run('start yandex://history', shell=True)
-    elif 'edge' in default_browser or 'microsoft' in default_browser:
-        subprocess.run('start msedge://history', shell=True)
-    elif 'firefox' in default_browser:
-        subprocess.run('start firefox://history', shell=True)
-    elif 'opera' in default_browser:
-        subprocess.run('start opera://history', shell=True)
-    else:
-        # Если браузер не определен, пробуем все варианты
-        subprocess.run('start chrome://history', shell=True)
-        subprocess.run('start yandex://history', shell=True)
+    """Открывает историю через браузер по умолчанию"""
+    # Самый простой и надежный способ!
+    subprocess.run('start https://history', shell=True)
 
 # Создаем главное окно
 root = tk.Tk()
