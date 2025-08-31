@@ -10,56 +10,71 @@ def open_appdata_roaming():
 
 def open_network_usage():
     """Открывает использование данных в настройках Windows"""
-    # Точный путь к использованию данных
-    subprocess.run('start ms-settings:datausage', shell=True)
+    # Пробуем несколько способов открыть использование данных
+    try:
+        # Способ 1: Через настройки
+        subprocess.run('start ms-settings:datausage', shell=True)
+    except:
+        try:
+            # Способ 2: Через панель управления
+            subprocess.run('control.exe /name Microsoft.NetworkAndSharingCenter', shell=True)
+        except:
+            # Способ 3: Просто открываем настройки сети
+            subprocess.run('start ms-settings:network', shell=True)
 
 def open_browser_history():
     """Открывает историю в браузере по умолчанию"""
-    # Просто открываем историю - браузер по умолчанию сам обработает
-    webbrowser.open('https://history')  # Универсальный способ
+    # Пробуем универсальный способ для браузера по умолчанию
+    try:
+        # Для большинства браузеров
+        webbrowser.open('about:history')
+    except:
+        try:
+            # Альтернатива
+            webbrowser.open('history')
+        except:
+            # Последняя попытка
+            webbrowser.open('chrome://history')
 
 # Создаем главное окно
 root = tk.Tk()
-root.title("System Utilities")
-root.geometry("500x400")
+root.title("System Tools")
+root.geometry("400x300")
 root.configure(bg="white")
 
-# Стиль для кнопок
-button_style = {
-    "font": ("Arial", 11),
-    "height": 2,
-    "width": 35,
-    "bg": "lightblue",
-    "wraplength": 300
-}
-
-# Кнопка 1: AppData\Roaming
+# Простые кнопки без переноса текста
 btn_appdata = tk.Button(
     root, 
-    text="Open AppData\\Roaming", 
+    text="Open AppData",
     command=open_appdata_roaming,
-    **button_style
+    font=("Arial", 12),
+    height=2,
+    width=20,
+    bg="lightblue"
 )
-btn_appdata.pack(pady=15)
+btn_appdata.pack(pady=10)
 
-# Кнопка 2: Использование данных
 btn_network = tk.Button(
     root,
-    text="Open Data Usage", 
+    text="Data Usage", 
     command=open_network_usage,
-    **button_style
+    font=("Arial", 12),
+    height=2,
+    width=20,
+    bg="lightgreen"
 )
-btn_network.pack(pady=15)
+btn_network.pack(pady=10)
 
-# Кнопка 3: История браузера
 btn_history = tk.Button(
     root,
-    text="Open Browser History", 
+    text="Browser History", 
     command=open_browser_history,
-    **button_style
+    font=("Arial", 12),
+    height=2,
+    width=20,
+    bg="lightyellow"
 )
-btn_history.pack(pady=15)
+btn_history.pack(pady=10)
 
 # Запускаем главный цикл
 root.mainloop()
-
