@@ -62,3 +62,4 @@ btn_history.pack(pady=15)
 
 # Запускаем главный цикл
 root.mainloop()
+
