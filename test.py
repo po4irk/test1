@@ -10,28 +10,17 @@ def open_appdata_roaming():
 
 def open_network_usage():
     """Открывает использование данных в настройках Windows"""
+    # Точный путь к использованию данных
     subprocess.run('start ms-settings:datausage', shell=True)
 
 def open_browser_history():
-    """Открывает историю активного браузера"""
-    # Все популярные браузеры включая Yandex
-    histories = [
-        'chrome://history',
-        'edge://history', 
-        'brave://history',
-        'opera://history',
-        'yabrowser://history'  # Добавил Yandex браузер
-    ]
-    for history_url in histories:
-        try:
-            webbrowser.open(history_url)
-            break
-        except:
-            continue
+    """Открывает историю в браузере по умолчанию"""
+    # Просто открываем историю - браузер по умолчанию сам обработает
+    webbrowser.open('https://history')  # Универсальный способ
 
 # Создаем главное окно
 root = tk.Tk()
-root.title("Системные утилиты")
+root.title("System Utilities")
 root.geometry("500x400")
 root.configure(bg="white")
 
@@ -47,7 +36,7 @@ button_style = {
 # Кнопка 1: AppData\Roaming
 btn_appdata = tk.Button(
     root, 
-    text="📁 Открыть AppData\\Roaming", 
+    text="Open AppData\\Roaming", 
     command=open_appdata_roaming,
     **button_style
 )
@@ -56,7 +45,7 @@ btn_appdata.pack(pady=15)
 # Кнопка 2: Использование данных
 btn_network = tk.Button(
     root,
-    text="📶 Открыть использование данных", 
+    text="Open Data Usage", 
     command=open_network_usage,
     **button_style
 )
@@ -65,7 +54,7 @@ btn_network.pack(pady=15)
 # Кнопка 3: История браузера
 btn_history = tk.Button(
     root,
-    text="🔍 Открыть историю браузера (Chrome/Edge/Yandex)", 
+    text="Open Browser History", 
     command=open_browser_history,
     **button_style
 )
